@@ -22,7 +22,7 @@ def test_defocus_detector(fix2, fix):
     assert db.edge_template < "1"
     t1 = take_datetime()
     #ждем дефокусировки
-    time.sleep(20)
+    time.sleep(25)
     t2 = take_datetime()
     db1.find_defocus_time()
     defocustime = db1.records[0][5]
