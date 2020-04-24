@@ -4,3 +4,4 @@ parse
 requests
 allure-pytest
 pywinauto
+psycopg2
