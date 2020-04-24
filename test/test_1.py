@@ -21,8 +21,8 @@ def test_defocus_detector(fix2, fix):
     db.check_cam_defocus_from_db(db)
     assert db.edge_template < "1"
     t1 = take_datetime()
-    #ждем дефокусировки
-    time.sleep(25)
+    #ждем дефокусировки (почему-то для дженкинса пришлось добавить 8 секунд, дефокус приходил позже)
+    time.sleep(28)
     t2 = take_datetime()
     db1.find_defocus_time()
     defocustime = db1.records[0][5]
