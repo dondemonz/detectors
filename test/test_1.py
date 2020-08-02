@@ -22,15 +22,16 @@ def test_defocus_detector(fix2, fix):
     assert db.edge_template < "1"
     t1 = take_datetime()
     #ждем дефокусировки (почему-то для дженкинса пришлось добавить 8 секунд, дефокус приходил позже)
-    time.sleep(28)
+    time.sleep(29)
     t2 = take_datetime()
+    time.sleep(1)
     db1.find_defocus_time()
     defocustime = db1.records[0][5]
     defocustime = defocustime.strftime("%Y-%m-%d %H:%M:%S")
     #print(defocustime)
     assert t1 <= defocustime <= t2
     t3 = take_datetime()
-    time.sleep(15)
+    time.sleep(16)
     t4 = take_datetime()
 
     db2 = DbHelper(dbname="protocol")
