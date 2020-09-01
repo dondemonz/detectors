@@ -46,9 +46,9 @@ def fix3(request):
     time.sleep(2)
     fix.send_event(message=("CORE||CREATE_OBJECT|objtype<CAM_DEFOCUS>,objid<" + defocusId + ">,parent_id<" + defocusId + ">,name<" + detectorName + ">,enable_time_zone<1>,time_zone<1.1>").encode("utf-8"))
     def fin():
-        fix.send_event(message=("CORE||DELETE_OBJECT|objtype<GRABBER>,objid<" + camId + ">").encode("utf-8"))
+        #fix.send_event(message=("CORE||DELETE_OBJECT|objtype<GRABBER>,objid<" + camId + ">").encode("utf-8"))
         time.sleep(1)
-        fix.send_event(message=("CORE||DELETE_OBJECT|objtype<TIME_ZONE>,objid<"+timeZoneId+">").encode("utf-8"))
+        #fix.send_event(message=("CORE||DELETE_OBJECT|objtype<TIME_ZONE>,objid<"+timeZoneId+">").encode("utf-8"))
         fix.disconnect()
     request.addfinalizer(fin)
     return t2
