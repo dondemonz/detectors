@@ -23,6 +23,7 @@ class DbHelper:
                 cursor.execute('SELECT * FROM "OBJ_CAM_DEFOCUS" WHERE id =%s', (id,))
                 self.records = cursor.fetchall()
                 assert self.records != None
+                assert self.records != []
                 #print("records", self.records)
         cursor.close()
         return conn
@@ -37,6 +38,7 @@ class DbHelper:
         with self.connection as conn:
             with conn.cursor(cursor_factory=DictCursor) as cursor:
                 cursor.execute('SELECT * FROM "PROTOCOL" WHERE objid =%s', (id,))
+                assert self.records != []
                 self.records = cursor.fetchall()
                 #print("records", self.records)
         cursor.close()
@@ -56,6 +58,7 @@ class DbHelper:
                 #print(t2)
                 self.records = cursor.fetchall()
                 assert self.records != None
+                assert self.records != []
                 #print("records", self.records)
         cursor.close()
         return conn
@@ -66,6 +69,7 @@ class DbHelper:
                 cursor.execute('SELECT * FROM "PROTOCOL" WHERE action =%s AND objid =%s', ("DEFOCUSED", defocusId,))
                 self.records = cursor.fetchall()
                 assert self.records != None
+                assert self.records != []
                 #print("records", self.records)
         cursor.close()
         return conn
@@ -77,6 +81,39 @@ class DbHelper:
                 self.records = cursor.fetchall()
                 assert self.records != None
                 #print("records", self.records)
+        cursor.close()
+        return conn
+
+    def find_light_on(self):
+        with self.connection as conn:
+            with conn.cursor(cursor_factory=DictCursor) as cursor:
+                cursor.execute('SELECT * FROM "PROTOCOL" WHERE action =%s AND objid =%s', ("LIGHT_ON", ld_id,))
+                self.records = cursor.fetchall()
+                assert self.records != None
+                assert self.records != []
+                print("records", self.records)
+        cursor.close()
+        return conn
+
+    def find_light_off(self):
+        with self.connection as conn:
+            with conn.cursor(cursor_factory=DictCursor) as cursor:
+                cursor.execute('SELECT * FROM "PROTOCOL" WHERE action =%s AND objid =%s', ("LIGHT_OFF", ld_id,))
+                self.records = cursor.fetchall()
+                assert self.records != None
+                assert self.records != []
+                print("records", self.records)
+        cursor.close()
+        return conn
+
+    def find_shifted(self):
+        with self.connection as conn:
+            with conn.cursor(cursor_factory=DictCursor) as cursor:
+                cursor.execute('SELECT * FROM "PROTOCOL" WHERE action =%s AND objid =%s', ("SHIFTED", tiltId,))
+                self.records = cursor.fetchall()
+                assert self.records != None
+                assert self.records != []
+                print("records", self.records)
         cursor.close()
         return conn
 

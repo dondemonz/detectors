@@ -16,3 +16,6 @@ detectorName = "det 202"
 slave = "VQA-2"
 headers = {"Content-Type": "application/json"}
 timeZoneId = "1.1"
+cam_zone_Id = "202.2"
+ld_id = "202.2"
+tiltId = "202"

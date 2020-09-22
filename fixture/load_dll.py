@@ -54,6 +54,7 @@ class DllHelper:
         msg = c_char_p(message)
         self.my_dll.SendDoReact.argtypes = [c_char_p, c_char_p]
         self.my_dll.SendDoReact(p3, msg)
+        self.disconnect()
 
     def send_event(self, message):
         self.connect_to_dll()
@@ -61,6 +62,7 @@ class DllHelper:
         msg = c_char_p(message)
         self.my_dll.SendMsg.argtypes = [c_char_p, c_char_p]
         self.my_dll.SendMsg(p3, msg)
+        self.disconnect()
 
     def disconnect(self):
         self.my_dll.Disconnect(iidkId)
