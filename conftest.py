@@ -76,3 +76,16 @@ def fix5(request):
         fix.send_event(message=("CORE||DELETE_OBJECT|objtype<GRABBER>,objid<" + camId + ">").encode("utf-8"))
     request.addfinalizer(fin)
     return request
+
+@pytest.fixture()
+def fix5(request):
+    fix = DllHelper()
+    fix.send_event(message=("CORE||CREATE_OBJECT|objtype<GRABBER>,objid<" + camId + ">,parent_id<" + slave + ">,name<" + grabberName + ">,type<Virtual>,model<default>,chan<3>").encode("utf-8"))
+    #канал у камеры mux, а не grabber_chan и он должен быть на 1 меньше ожидаемого
+    fix.send_event(message=("CORE||CREATE_OBJECT|objtype<CAM>,objid<" + camId + ">,parent_id<" + camId + ">,name<"+camName+">,,mux<2>").encode("utf-8"))
+
+
+    def fin():
+        fix.send_event(message=("CORE||DELETE_OBJECT|objtype<GRABBER>,objid<" + camId + ">").encode("utf-8"))
+    request.addfinalizer(fin)
+    return request
