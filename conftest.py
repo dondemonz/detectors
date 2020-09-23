@@ -78,14 +78,30 @@ def fix5(request):
     return request
 
 @pytest.fixture()
-def fix5(request):
+def fix6(request):
     fix = DllHelper()
-    fix.send_event(message=("CORE||CREATE_OBJECT|objtype<GRABBER>,objid<" + camId + ">,parent_id<" + slave + ">,name<" + grabberName + ">,type<Virtual>,model<default>,chan<3>").encode("utf-8"))
+    fix.send_event(message=("CORE||CREATE_OBJECT|objtype<GRABBER>,objid<" + camId + ">,parent_id<" + slave + ">,name<" + grabberName + ">,type<Virtual>,model<default>,chan<4>").encode("utf-8"))
     #канал у камеры mux, а не grabber_chan и он должен быть на 1 меньше ожидаемого
-    fix.send_event(message=("CORE||CREATE_OBJECT|objtype<CAM>,objid<" + camId + ">,parent_id<" + camId + ">,name<"+camName+">,,mux<2>").encode("utf-8"))
-
+    fix.send_event(message=("CORE||CREATE_OBJECT|objtype<CAM>,objid<" + camId + ">,parent_id<" + camId + ">,name<"+camName+">,,mux<3>").encode("utf-8"))
+    fix.send_event(message=("CORE||UPDATE_OBJECT|objtype<CAM>,objid<202>,blinding<1>").encode("utf-8"))
 
     def fin():
         fix.send_event(message=("CORE||DELETE_OBJECT|objtype<GRABBER>,objid<" + camId + ">").encode("utf-8"))
     request.addfinalizer(fin)
     return request
+
+@pytest.fixture()
+def fix7(request):
+    t2 = take_time2()
+    fix = DllHelper()
+    fix.send_event(message=("CORE||CREATE_OBJECT|objtype<TIME_ZONE>,objid<1.1>,parent_id<1>,name<Zone>").encode("utf-8"))
+    fix.send_event(message=("CORE||UPDATE_OBJECT|objtype<TIME_ZONE>,objid<1.1>,parent_id<1>,name<Zone>,INTERVAL.days.0<127>,INTERVAL.days.count<1>,INTERVAL.time1.0 <00:00:00.000>,INTERVAL.time1.count<1>,INTERVAL.time2.0<" + t2 + ">,INTERVAL.time2.count < 1 >").encode("utf-8"))
+    fix.send_event(message=("CORE||CREATE_OBJECT|objtype<GRABBER>,objid<" + camId + ">,parent_id<" + slave + ">,name<" + grabberName + ">,type<Virtual>,model<default>,chan<4>").encode("utf-8"))
+    #канал у камеры mux, а не grabber_chan и он должен быть на 1 меньше ожидаемого
+    fix.send_event(message=("CORE||CREATE_OBJECT|objtype<CAM>,objid<" + camId + ">,parent_id<" + camId + ">,name<"+camName+">,,mux<3>").encode("utf-8"))
+    fix.send_event(message=("CORE||UPDATE_OBJECT|objtype<CAM>,objid<202>,blinding<1>,blind_time_zone<1.1>").encode("utf-8"))
+    def fin():
+        fix.send_event(message=("CORE||DELETE_OBJECT|objtype<GRABBER>,objid<" + camId + ">").encode("utf-8"))
+        fix.send_event(message=("CORE||DELETE_OBJECT|objtype<TIME_ZONE>,objid<"+timeZoneId+">").encode("utf-8"))
+    request.addfinalizer(fin)
+    return t2

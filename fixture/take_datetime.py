@@ -23,6 +23,7 @@ def take_datetime1():
     t1 = m.strftime("%Y-%m-%d %H:%M:%S")
     return t1
 
+
 def take_time():
     m = dt.datetime.now()
     t1 = m.strftime("%H:%M:%S")
@@ -30,5 +31,10 @@ def take_time():
 
 def take_time1():
     m = dt.datetime.now() + timedelta(minutes=1, seconds=30)
+    t1 = m.strftime("%H:%M:%S")
+    return t1
+
+def take_time2():
+    m = dt.datetime.now() + timedelta(seconds=30)
     t1 = m.strftime("%H:%M:%S")
     return t1

@@ -117,6 +117,50 @@ class DbHelper:
         cursor.close()
         return conn
 
+    def find_blinding(self):
+        with self.connection as conn:
+            with conn.cursor(cursor_factory=DictCursor) as cursor:
+                cursor.execute('SELECT * FROM "PROTOCOL" WHERE action =%s AND objid =%s', ("BLINDING", camId,))
+                self.records = cursor.fetchall()
+                assert self.records != None
+                assert self.records != []
+                print("records", self.records)
+        cursor.close()
+        return conn
+
+    def find_unblinding(self):
+        with self.connection as conn:
+            with conn.cursor(cursor_factory=DictCursor) as cursor:
+                cursor.execute('SELECT * FROM "PROTOCOL" WHERE action =%s AND objid =%s', ("UNBLINDING", camId,))
+                self.records = cursor.fetchall()
+                assert self.records != None
+                assert self.records != []
+                print("records", self.records)
+        cursor.close()
+        return conn
+
+    def find_blinding_time(self):
+        with self.connection as conn:
+            with conn.cursor(cursor_factory=DictCursor) as cursor:
+                cursor.execute('SELECT * FROM "PROTOCOL" WHERE action =%s AND objid =%s', ("BLINDING", camId,))
+                self.records = cursor.fetchall()
+                assert self.records != None
+                assert self.records != []
+                #print("records", self.records)
+        cursor.close()
+        return conn
+
+    def find_blinding_time_after_deactivation_zone(self, t3):
+        with self.connection as conn:
+            with conn.cursor(cursor_factory=DictCursor) as cursor:
+                cursor.execute('SELECT * FROM "PROTOCOL" WHERE action =%s AND objid =%s AND time >%s', ("BLINDING", camId, t3))
+                self.records = cursor.fetchall()
+                assert self.records != None
+                #print("records", self.records)
+        cursor.close()
+        return conn
+
+
 #cursor.execute('SELECT * FROM audit_events WHERE event_action=%s', (event_action,))
     #CONVERT_TZ(created_at, '+00:00', '+08:00')   between     "2018-01-24" and "2018-01-25"
 
