@@ -4,7 +4,7 @@ from fixture.take_datetime import *
 from fixture.work_with_tree import *
 
 
-def test_defocus_detector(fix2, fix):
+def test_defocus_detector(fixture_for_defocus, fix):
     dlg = expand_tree_to_detector()
     check_dlg_properties(dlg)
 
@@ -42,7 +42,7 @@ def test_defocus_detector(fix2, fix):
     assert t3 <= focustime <= t4
     dlg.child_window(auto_id="MainPanelForm.gridLayoutWidget.MainPanelWidget.rightFrame.setupWidget.setupButton").click()
 
-def test_defocus_detector_with_schedule(fix3):
+def test_defocus_detector_with_schedule(fixture_for_defocus_shedule):
     t1 = take_time()
     db1 = DbHelper(dbname="protocol")
     db1.clean_db()
@@ -56,7 +56,7 @@ def test_defocus_detector_with_schedule(fix3):
     defocustime = defocustime.strftime("%H:%M:%S")
     #print(defocustime)
     #есть ли хотябы 1 дефокус в течение действия таймзоны
-    assert t1 <= defocustime <= fix3
+    assert t1 <= defocustime <= fixture_for_defocus_shedule
     t3 = take_datetime()
     time.sleep(90)
     db2 = DbHelper(dbname="protocol")

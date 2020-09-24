@@ -2,7 +2,7 @@ import time
 from fixture.work_with_db import DbHelper
 from fixture.take_datetime import *
 
-def test_glare_detector(fix6):
+def test_glare_detector(fixture_for_glare):
     db4 = DbHelper(dbname="protocol")
     db4.clean_db()
     time.sleep(30)
@@ -10,7 +10,7 @@ def test_glare_detector(fix6):
     db4.find_unblinding()
     time.sleep(1)
 
-def test_glare_detector_with_schedule(fix7):
+def test_glare_detector_with_schedule(fixture_for_glare_shedule):
     t1 = take_time()
     db5 = DbHelper(dbname="protocol")
     db5.clean_db()
@@ -22,7 +22,7 @@ def test_glare_detector_with_schedule(fix7):
     blindingtime = blindingtime.strftime("%H:%M:%S")
     #print(blindingtime)
     #есть ли хотябы 1 blinding в течение действия таймзоны
-    assert t1 <= blindingtime <= fix7
+    assert t1 <= blindingtime <= fixture_for_glare_shedule
 
     t3 = take_datetime()
     time.sleep(40)

@@ -29,7 +29,7 @@ class DbHelper:
         return conn
 
     def check_cam_defocus_from_db(self, db):
-        db.check_cam_defocus(id=defocusId)
+        db.check_cam_defocus(id=defocus_id)
         self.edge_template = db.records[0][12]
         #print(self.edge_template)
 
@@ -54,7 +54,7 @@ class DbHelper:
         with self.connection as conn:
             with conn.cursor(cursor_factory=DictCursor) as cursor:
                 time.sleep(2)
-                cursor.execute('SELECT * FROM "PROTOCOL" WHERE action =%s AND objid =%s AND time >%s', ("FOCUSED", defocusId, t2,))
+                cursor.execute('SELECT * FROM "PROTOCOL" WHERE action =%s AND objid =%s AND time >%s', ("FOCUSED", defocus_id, t2,))
                 #print(t2)
                 self.records = cursor.fetchall()
                 assert self.records != None
@@ -66,7 +66,7 @@ class DbHelper:
     def find_defocus_time(self):
         with self.connection as conn:
             with conn.cursor(cursor_factory=DictCursor) as cursor:
-                cursor.execute('SELECT * FROM "PROTOCOL" WHERE action =%s AND objid =%s', ("DEFOCUSED", defocusId,))
+                cursor.execute('SELECT * FROM "PROTOCOL" WHERE action =%s AND objid =%s', ("DEFOCUSED", defocus_id,))
                 self.records = cursor.fetchall()
                 assert self.records != None
                 assert self.records != []
@@ -77,7 +77,7 @@ class DbHelper:
     def find_defocus_time_after_deactivation_zone(self, t3):
         with self.connection as conn:
             with conn.cursor(cursor_factory=DictCursor) as cursor:
-                cursor.execute('SELECT * FROM "PROTOCOL" WHERE action =%s AND objid =%s AND time >%s', ("DEFOCUSED", defocusId, t3))
+                cursor.execute('SELECT * FROM "PROTOCOL" WHERE action =%s AND objid =%s AND time >%s', ("DEFOCUSED", defocus_id, t3))
                 self.records = cursor.fetchall()
                 assert self.records != None
                 #print("records", self.records)
@@ -109,7 +109,7 @@ class DbHelper:
     def find_shifted(self):
         with self.connection as conn:
             with conn.cursor(cursor_factory=DictCursor) as cursor:
-                cursor.execute('SELECT * FROM "PROTOCOL" WHERE action =%s AND objid =%s', ("SHIFTED", tiltId,))
+                cursor.execute('SELECT * FROM "PROTOCOL" WHERE action =%s AND objid =%s', ("SHIFTED", defocus_id,))
                 self.records = cursor.fetchall()
                 assert self.records != None
                 assert self.records != []
@@ -120,7 +120,7 @@ class DbHelper:
     def find_blinding(self):
         with self.connection as conn:
             with conn.cursor(cursor_factory=DictCursor) as cursor:
-                cursor.execute('SELECT * FROM "PROTOCOL" WHERE action =%s AND objid =%s', ("BLINDING", camId,))
+                cursor.execute('SELECT * FROM "PROTOCOL" WHERE action =%s AND objid =%s', ("BLINDING", cam_id,))
                 self.records = cursor.fetchall()
                 assert self.records != None
                 assert self.records != []
@@ -131,7 +131,7 @@ class DbHelper:
     def find_unblinding(self):
         with self.connection as conn:
             with conn.cursor(cursor_factory=DictCursor) as cursor:
-                cursor.execute('SELECT * FROM "PROTOCOL" WHERE action =%s AND objid =%s', ("UNBLINDING", camId,))
+                cursor.execute('SELECT * FROM "PROTOCOL" WHERE action =%s AND objid =%s', ("UNBLINDING", cam_id,))
                 self.records = cursor.fetchall()
                 assert self.records != None
                 assert self.records != []
@@ -142,7 +142,7 @@ class DbHelper:
     def find_blinding_time(self):
         with self.connection as conn:
             with conn.cursor(cursor_factory=DictCursor) as cursor:
-                cursor.execute('SELECT * FROM "PROTOCOL" WHERE action =%s AND objid =%s', ("BLINDING", camId,))
+                cursor.execute('SELECT * FROM "PROTOCOL" WHERE action =%s AND objid =%s', ("BLINDING", cam_id,))
                 self.records = cursor.fetchall()
                 assert self.records != None
                 assert self.records != []
@@ -153,7 +153,7 @@ class DbHelper:
     def find_blinding_time_after_deactivation_zone(self, t3):
         with self.connection as conn:
             with conn.cursor(cursor_factory=DictCursor) as cursor:
-                cursor.execute('SELECT * FROM "PROTOCOL" WHERE action =%s AND objid =%s AND time >%s', ("BLINDING", camId, t3))
+                cursor.execute('SELECT * FROM "PROTOCOL" WHERE action =%s AND objid =%s AND time >%s', ("BLINDING", cam_id, t3))
                 self.records = cursor.fetchall()
                 assert self.records != None
                 #print("records", self.records)
