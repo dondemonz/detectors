@@ -5,5 +5,5 @@ pluggy
 requests
 six
 allure-pytest
-#pywinauto
+pywinauto
 psycopg2
