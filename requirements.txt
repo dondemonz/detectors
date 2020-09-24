@@ -1,7 +1,9 @@
 #устанавливаются в shiningpanda, так же копируется виртуальное окружение где много других плагинов
 pytest
 parse
+pluggy
 requests
+six
 allure-pytest
 #pywinauto
 psycopg2
