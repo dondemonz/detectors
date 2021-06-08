@@ -4,7 +4,7 @@ from fixture.work_with_db import DbHelper
 
 
 
-def test(fixture_for_light):
+def test_light_detector(fixture_for_light):
     db1 = DbHelper(dbname="protocol")
     db1.clean_db()
     time.sleep(9)
